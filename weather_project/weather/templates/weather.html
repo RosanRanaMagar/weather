@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- FontAwesome for Icons -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #1f4037, #99f2c8);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            background-color: rgba(168, 211, 214, 0.85);
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: black;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 30px;
+            font-size: 1em;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        input[type="text"]:focus {
+            box-shadow: 0 0 5px #00bcd4;
+        }
+        button {
+            padding: 15px 25px;
+            background: #00bcd4;
+            color: white;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #008c99;
+        }
+        .weather-info {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .weather-info img {
+            width: 100px;
+            margin-top: 15px;
+        }
+        .weather-info h3 {
+            font-size: 1.8em;
+            color: #211f1f;
+        }
+        .weather-info p {
+            margin: 5px 0;
+            color: #0c0a0a;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Weather App 🌤️</h2>
+        
+        <!-- Form to input city name -->
+        <form method="get" action="">
+            <input type="text" name="city" placeholder="Enter city name" value="{{ request.GET.city }}">
+            <button type="submit"><i class="fas fa-search"></i> Get Weather</button>
+        </form>
+        
+        <!-- Display weather info -->
+        <div class="weather-info">
+            {% if weather.error %}
+                <p class="error">{{ weather.error }}</p>
+            {% else %}
+                <h3>{{ weather.city }}</h3>
+                <p><i class="fas fa-thermometer-half"></i> Temperature: {{ weather.temperature }}°C</p>
+                <p><i class="fas fa-cloud-sun"></i> Weather: {{ weather.description }}</p>
+                <p><i class="fas fa-tint"></i> Humidity: {{ weather.humidity }}%</p>
+                <p><i class="fas fa-wind"></i> Wind Speed: {{ weather.wind_speed }} km/h</p>
+                <img src="https://openweathermap.org/img/wn/{{ weather.icon }}.png" alt="Weather Icon">
+            {% endif %}
+        </div>
+
+        <!-- Footer 
+        <div class="footer">
+            <p>Weather information powered by OpenWeatherMap API</p>
+        </div> -->
+    </div>
+
+</body>
+</html>
